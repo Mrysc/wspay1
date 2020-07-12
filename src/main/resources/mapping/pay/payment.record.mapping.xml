@@ -21,7 +21,6 @@
             total_amount,
             out_trade_no,
             request_data,
-            paybill_no,
             create_by,
             create_time,
             update_by,
@@ -44,7 +43,6 @@
             #{entity.totalAmount},
             #{entity.outTradeNo},
             #{entity.requestData},
-            #{entity.paybillNo},
             #{entity.createBy},
             #{entity.createTime},
             #{entity.updateBy},
@@ -73,7 +71,6 @@
         UPDATE
         ws_cloud_pay.payment_record
         SET
-        pay_status = #{entity.payStatus},
         confirm_request_data = #{entity.confirmRequestData},
         confirm_response_data = #{entity.confirmResponseData},
         update_by = #{entity.updateBy},

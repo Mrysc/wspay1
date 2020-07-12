@@ -28,22 +28,18 @@ public class ElectronicreceiptNotifyServiceImpl implements IElectronicreceiptNot
     public String notify(String data) throws Exception {
         boolean result =  XmlSignUtil.verify(data);
         TreeMap<String,String> map = XmlToMap.DocumentMap(data);
+        TreeMap<String,Object> mapBody= XmlToMap.DocumentMapType(data,"body");
+        Map<String, Object> map1=  MapChangeKay.transformUpperCase(mapBody);
+        ElectronicReceiptEntity electronicReceiptEntity= (ElectronicReceiptEntity) MapEntity.map2Object(map1, ElectronicReceiptEntity.class);
+        ElectronicReceiptEntity electronicReceipt = electronicreceiptDao.selectByOutTradeNo(electronicReceiptEntity.getOutTradeNo());
+        electronicReceipt.setStatus(electronicReceiptEntity.getStatus());
+        electronicReceipt.setPdfDownloadUrl(electronicReceiptEntity.getPdfDownloadUrl());
+        electronicReceipt.preUpdate();
+        electronicreceiptDao.update(electronicReceipt);
         //响应回执生成(报文组装步骤)
         String response = DomCreateResponse.requestcreateXml(map);
         //开始对响应回执进行签名验证(自签自验环节)
         boolean responseVerify =  XmlSignUtil.verifyFromYourSelf(response);
-        if(result&&responseVerify){
-            TreeMap<String,Object> mapBody= XmlToMap.DocumentMapType(data,"body");
-            Map<String, Object> map1=  MapChangeKay.transformUpperCase(mapBody);
-            ElectronicReceiptEntity electronicReceiptEntity= (ElectronicReceiptEntity) MapEntity.map2Object(map1, ElectronicReceiptEntity.class);
-            ElectronicReceiptEntity electronicReceipt = electronicreceiptDao.selectByOutTradeNo(electronicReceiptEntity.getOutTradeNo());
-            electronicReceipt.setStatus(electronicReceiptEntity.getStatus());
-            electronicReceipt.setPdfDownloadUrl(electronicReceiptEntity.getPdfDownloadUrl());
-            electronicReceipt.preUpdate();
-            electronicreceiptDao.update(electronicReceipt);
-        }else {
-            System.out.println("验签失败——result："+result+"   responseVerify:"+responseVerify);
-        }
         return response;
     }
 

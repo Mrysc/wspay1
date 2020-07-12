@@ -4,6 +4,7 @@ package com.rltx.wspay.account.controller;
 import com.rltx.common.base.BaseContext;
 
 import com.rltx.wspay.account.entity.MerchEntity;
+import com.rltx.wspay.account.entity.MerchRegisterEntity;
 import com.rltx.wspay.account.result.MerchRegisterResult;
 import com.rltx.wspay.account.service.IMerchService;
 import com.rltx.wspay.utils.DownloadPicture;
@@ -36,8 +37,8 @@ public class MerchController extends BaseContext {
 
     //个人入驻
     @PostMapping(value = "register/person")
-    public MerchRegisterResult personRegister(String code) throws Exception {
-        MerchRegisterResult response = merchService.personRegister(code);
+    public MerchRegisterResult personRegister(MerchRegisterEntity merchRegisterEntity) throws Exception {
+        MerchRegisterResult response = merchService.personRegister(merchRegisterEntity);
         return response;
     }
 

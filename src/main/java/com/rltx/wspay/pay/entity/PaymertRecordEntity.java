@@ -27,6 +27,5 @@ public class PaymertRecordEntity extends BaseEntity {
     private String outTradeNo;
     private String totalAmount;
     private String orderNo;
-    private String paybillNo;
 
 }

@@ -31,20 +31,16 @@ public class OrderShareResponseServiceImpl implements IOrderShareResponseService
         //对来自网商得报文做签名验证
         boolean result =  XmlSignUtil.verify(data);
         TreeMap<String,String> map= XmlToMap.DocumentMap(data);
+        TreeMap<String,String> mapBody= XmlToMap.DocumentMapBody(data);
+        OrderShareEntity orderShareEntity = orderShareRecordDao.selectByOutTradeNo(mapBody.get("OutTradeNo"));
+        orderShareEntity.setStatus(mapBody.get("Status"));
+        orderShareEntity.setNotifyData(data);
+//        orderShareEntity.setShareDate();
+        orderShareRecordDao.updateNotify(orderShareEntity);
         //响应回执生成(报文组装步骤)
         String response = DomCreateResponse.requestcreateXml(map);
         //开始对响应回执进行签名验证(自签自验环节)
         boolean responseVerify =  XmlSignUtil.verifyFromYourSelf(response);
-        if(result&&responseVerify){
-            TreeMap<String,String> mapBody= XmlToMap.DocumentMapBody(data);
-            OrderShareEntity orderShareEntity = orderShareRecordDao.selectByOutTradeNo(mapBody.get("OutTradeNo"));
-            orderShareEntity.setStatus(mapBody.get("Status"));
-            orderShareEntity.setNotifyData(data);
-//        orderShareEntity.setShareDate();
-            orderShareRecordDao.updateNotify(orderShareEntity);
-        }else {
-            System.out.println("验签失败——result："+result+"   responseVerify:"+responseVerify);
-        }
         return response;
     }
 }

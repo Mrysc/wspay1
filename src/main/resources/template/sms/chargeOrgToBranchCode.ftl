@@ -1,0 +1,1 @@
+${orgName}向${branchOrgName}转账${tradeAmount}元。

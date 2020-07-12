@@ -1,14 +1,23 @@
 package com.rltx.wspay.account.entity;
 
+import com.rltx.wspay.utils.constant.ParamUtil;
 import com.rltx.wspay.utils.entity.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 商户入驻记录表
+ * 商户（个人，企业统称商户）入驻记录表
  */
+@Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MerchRegisterEntity extends BaseEntity {
-
+    @Builder.Default
+    private String isvOrgId = ParamUtil.getParamInfoByKey("IsvOrgId");
+    private String code;
     private String merchId;
     private String outMerchId;
     private String merchUserCode;

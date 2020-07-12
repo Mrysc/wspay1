@@ -1,5 +1,6 @@
 package com.rltx.wspay.commom;
 
+import com.rltx.wspay.utils.TradeNoUtils;
 import com.rltx.wspay.utils.constant.ParamUtil;
 import com.sun.org.apache.xml.internal.security.signature.XMLSignature;
 import org.w3c.dom.Document;
@@ -41,7 +42,7 @@ public class DomCreateRequest {
         reqTime.setTextContent(sdf.format(new Date()));
 
         Element reqMsgId = document.createElement("ReqMsgId");
-        reqMsgId.setTextContent(UUID.randomUUID().toString().replace("-",""));
+        reqMsgId.setTextContent(TradeNoUtils.getTradeNo32());
 
         Element inputCharset = document.createElement("InputCharset");
         inputCharset.setTextContent("UTF-8");

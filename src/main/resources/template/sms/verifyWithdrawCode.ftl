@@ -1,0 +1,1 @@
+${token}（${platformName}提现验证码），感谢您使用${platformName}平台<#if platformContact?? && platformContact!= "">，如有疑问请致电客服：${platformContact}</#if>

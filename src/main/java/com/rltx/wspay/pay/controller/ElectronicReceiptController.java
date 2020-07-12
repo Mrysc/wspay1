@@ -24,8 +24,8 @@ public class ElectronicReceiptController {
 
     //回单查询接口
     @PostMapping("payQuery")
-    public TreeMap<String, Object> payQuery(String paymertCode) throws Exception {
-        return electronicReceiptService.query(paymertCode);
+    public TreeMap<String, Object> payQuery(String code) throws Exception {
+        return electronicReceiptService.query(code);
     }
 
 }

@@ -4,14 +4,9 @@ public class PayConstant {
 
     public interface payStatus{
         String establish = "01";
-        String confirm = "02";
-        String success = "03";
+        String confirm = "02";//货主
+        String success = "03"; //平台
         String fail = "04";
-    }
-
-    public interface accountType{
-        String commonly = "0";
-        String income = "1";
     }
 
 }

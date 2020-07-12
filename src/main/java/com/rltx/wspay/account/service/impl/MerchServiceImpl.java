@@ -13,10 +13,13 @@ import com.rltx.wspay.constant.*;
 import com.rltx.wspay.other.dao.UploadPhotoDao;
 import com.rltx.wspay.other.entity.PhotoEntity;
 import com.rltx.wspay.other.service.IUploadService;
+import com.rltx.wspay.utils.DownloadPicture;
+import com.rltx.wspay.utils.TradeNoUtils;
 import com.rltx.wspay.utils.constant.MerchRegisterConstant;
 import com.rltx.wspay.utils.constant.ParamUtil;
-import com.rltx.wspay.utils.constant.PayConstant;
+import io.netty.util.internal.ObjectUtil;
 import org.apache.commons.lang.StringUtils;
+import org.assertj.core.internal.bytebuddy.implementation.bytecode.Throw;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +56,7 @@ public class MerchServiceImpl implements IMerchService {
     //企业入主接口
     @Override
     public MerchRegisterResult enterpriseRegister(String code) throws Exception {
-        MerchRegisterEntity merchRegisterEntity = merchRegisterDao.selectByMerchUserCodeType(code, PayConstant.accountType.commonly);
+        MerchRegisterEntity merchRegisterEntity = merchRegisterDao.selectByMerchUserCode(code);
         if(!ObjectUtils.isEmpty(merchRegisterEntity)){
             throw new BusinessException("企业已入驻");
         }
@@ -201,14 +204,15 @@ public class MerchServiceImpl implements IMerchService {
 
     //人员入驻接口
     @Override
-    public MerchRegisterResult personRegister(String code) throws Exception {
-        MerchRegisterEntity merchRegisterEntity = merchRegisterDao.selectByMerchUserCodeType(code,PayConstant.accountType.commonly);
-        if(!ObjectUtils.isEmpty(merchRegisterEntity)){
-            throw new BusinessException("司机已入驻");
+    public MerchRegisterResult personRegister(MerchRegisterEntity merchRegisterEntity ) throws Exception {
+        String code = merchRegisterEntity.getCode();
+        merchRegisterEntity = merchRegisterDao.selectByMerchUserCode(code);
+        if(!ObjectUtils.isEmpty(merchRegisterEntity)&&("0".equals(merchRegisterEntity.getRegisterStatus())||"1".equals(merchRegisterEntity.getRegisterStatus()))){
+            throw new BusinessException("司机已入驻或正在审核");
         }
         MemberPersonInfoEntity memberPerson = memberPersonInfoDao.select(code);
         String identityResourceCode = memberPerson.getIdentityResourceCode();
-        uplodeDriverPhoto(identityResourceCode,memberPerson.getCode());
+        uplodeDriverPhoto(identityResourceCode,code);
         MerchantDetailWithoutBankCard merchantDetail = merchantDetail(memberPerson);
         MerchEntity register = setPersonMerch(memberPerson,merchantDetail);
         ObjectMapper mapper = new ObjectMapper();
@@ -264,7 +268,6 @@ public class MerchServiceImpl implements IMerchService {
     //人员基本参数
     public MerchEntity setPersonMerch(MemberPersonInfoEntity memberPerson,MerchantDetailWithoutBankCard merchantDetail) throws JSONException {
         MerchEntity register = new MerchEntity();
-        register.setIsvOrgId(ParamUtil.getParamInfoByKey("IsvOrgId"));
         register.setOutTradeNo(TradeNoUtils.getTradeNo32());
         register.setOutMerchantId(TradeNoUtils.getTradeNo32());
         register.setMerchantType(MerchantType.NATURAL);
@@ -328,7 +331,7 @@ public class MerchServiceImpl implements IMerchService {
 
 
     public void insertRegister(MerchRegisterRecordEntity merchResponseEntity,String merchId){
-        MerchRegisterEntity merchRegister = merchRegisterDao.selectByMerchUserCodeType(merchResponseEntity.getMerchUserCode(),PayConstant.accountType.commonly);
+        MerchRegisterEntity merchRegister = merchRegisterDao.selectByMerchUserCode(merchResponseEntity.getMerchUserCode());
         if(StringUtils.isEmpty(merchRegister.getMerchId())){
             merchRegister.setMerchId(merchId);
             merchRegister.setRegisterStatus("1");

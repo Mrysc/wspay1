@@ -1,22 +1,24 @@
 package com.rltx.wspay.withdrawal.entity;
 
+import com.rltx.wspay.utils.constant.ParamUtil;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class WithdrawQueryEntity {
 
-    private String isvOrgId;
+    @Builder.Default
+    private String isvOrgId = ParamUtil.getParamInfoByKey("IsvOrgId");
 
     private String merchantId;
 
     private String outTradeNo;
 
-    private String orderNO;
+    private String orderNo;
 
-    public WithdrawQueryEntity(String isvOrgId, String merchantId, String outTradeNo, String orderNO) {
-        this.isvOrgId = isvOrgId;
-        this.merchantId = merchantId;
-        this.outTradeNo = outTradeNo;
-        this.orderNO = orderNO;
-    }
 }

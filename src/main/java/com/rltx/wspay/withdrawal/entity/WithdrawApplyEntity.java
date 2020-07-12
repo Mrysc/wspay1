@@ -26,13 +26,13 @@ public class WithdrawApplyEntity extends BaseEntity {
 
     @Builder.Default
     private String currency = ParamUtil.getParamInfoByKey("Currency");
-
-    private String platformFee;
+    @Builder.Default
+    private String platformFee = "0";
 
     @Builder.Default
     private String feeCurrency = ParamUtil.getParamInfoByKey("Currency");
-
-    private String memo;
+    @Builder.Default
+    private String memo = "";
 
     private String flag;
 

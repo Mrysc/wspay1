@@ -31,7 +31,7 @@
             #{withdrawApplyEntity.orderNo},
             #{withdrawApplyEntity.createTime},
             #{withdrawApplyEntity.createBy},
-            #{withdrawApplyEntity.updateTime},
+            now(),
             #{withdrawApplyEntity.updateBy}
         )
     </insert>
@@ -42,7 +42,7 @@
         SET
         flag = #{entity.flag},
         update_by = #{entity.updateBy},
-        update_time = #{entity.updateTime}
+        update_time = now()
         WHERE
         out_trade_no = #{entity.outTradeNo}
     </update>
@@ -58,7 +58,7 @@
         error_desc = #{entity.errorDesc},
         flag = #{entity.flag},
         update_by = #{entity.updateBy},
-        update_time = #{entity.updateTime}
+        update_time = now()
         WHERE
         out_trade_no = #{entity.outTradeNo}
     </update>

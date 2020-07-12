@@ -1,7 +1,9 @@
 package com.rltx.wspay.other.service.impl;
 
 import com.rltx.wspay.account.dao.MemberThumbnailResourceFileDao;
+import com.rltx.wspay.account.entity.MerchRegisterEntity;
 import com.rltx.wspay.commom.*;
+import com.rltx.wspay.constant.PhotoType;
 import com.rltx.wspay.other.dao.UploadPhotoDao;
 import com.rltx.wspay.other.entity.PhotoEntity;
 import com.rltx.wspay.other.entity.UploadPhotoEntity;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.TreeMap;
+import java.util.UUID;
 
 
 @Service
@@ -35,14 +38,14 @@ public class UploadServiceImpl implements IUploadService {
         if(dirDiveded.length > 0){
             newName = dirDiveded[dirDiveded.length-1];
         }
-        String path = "/storage/photo/wspay/"+newName;
+        String path = "/storage/photo/ws-pay/"+newName;
         DownloadPicture.downloadPicture(photoPath,path);
-        UploadPhotoEntity photo = new UploadPhotoEntity(photoType, TradeNoUtils.getTradeNo32(),path);
+        UploadPhotoEntity photo = new UploadPhotoEntity(photoType, UUID.randomUUID().toString(),path);
         call(photo,userCode,type);
     }
 
     @Override
-    public TreeMap<String, Object> call(UploadPhotoEntity uploadPhotoEntity, String userCode , String type) throws Exception {
+    public TreeMap<String, Object> call(UploadPhotoEntity uploadPhotoEntity, String userCode ,String type) throws Exception {
         HttpEntity reqEntity = buildReqEntity(uploadPhotoEntity);
         String response = HttpsUtil.httpPost(ParamUtil.getParamInfoByKey("upLoadReqUrl"), reqEntity);
         boolean result =  XmlSignUtil.verify(response);

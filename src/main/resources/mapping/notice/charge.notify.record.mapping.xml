@@ -54,42 +54,6 @@
             #{entity.updateTime}
         )
     </insert>
-
-
-
-    <select id="select" parameterType="String" resultType="com.rltx.wspay.notice.entity.ChargeNotifyRecordEntity">
-        SELECT
-            merch_id AS merchId,
-            merch_user_code AS merchUserCode,
-            merch_name AS merchName,
-            order_no AS orderNo,
-            trans_no AS transNo,
-            channel_id AS channelId,
-            payer_bank_org_id AS payerBankOrgId,
-            payer_card_no AS payerCardNo,
-            payer_card_name AS payerCardName,
-            payee_card_no AS payeeCardNo,
-            payee_card_name AS payeeCardName,
-            total_amount AS totalAmount,
-            currency AS currency,
-            transfer_date AS transferDate,
-            memo AS memo,
-            extInfo AS extInfo,
-            status AS status,
-            ostro_type AS ostroType,
-            vostro_scene AS vostroScene,
-            create_by AS createBy,
-            create_time AS createTime,
-            update_by AS updateBy,
-            update_time AS updateTime
-        FROM
-            ws_cloud_pay.charge_notify_record
-        WHERE
-            deleted = '0'
-            AND
-            order_no = #{orderNo}
-    </select>
-
 </mapper>
 
 

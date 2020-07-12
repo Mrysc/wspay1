@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -32,12 +31,6 @@ public class MerchConsignorMoneyServiceImpl implements IMerchConsignorMoneyServi
         String totalAmountYuan = AmountUtils.changeF2Y(totalAmount);
         Double sumMoney = Double.valueOf(AmountUtils.sumMoney(money,totalAmountYuan));
         consignorMoneyEntity.setMoney(sumMoney);
-        try {
-            consignorMoneyEntity.preUpdate();
-        }catch (Exception e){
-            consignorMoneyEntity.setUpdateBy("网商异步通知");
-            consignorMoneyEntity.setUpdateTime(new Date());
-        }
         consignorMoneyDao.update(consignorMoneyEntity);
     }
 }

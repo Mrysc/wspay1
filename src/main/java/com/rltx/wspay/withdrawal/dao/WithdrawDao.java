@@ -9,8 +9,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository("withdrawDao")
 public interface WithdrawDao {
-    void insert(@Param("withdrawApplyEntity")WithdrawApplyEntity withdrawApplyEntity) throws Exception;
+    void insert(@Param("withdrawApplyEntity")WithdrawApplyEntity withdrawApplyEntity);
 
+
+    /**
+     * 废弃  2020-7-8 09:56:39  前端会将值传递过来
+     * @param outTradeNo
+     * @return
+     */
     WithdrawApplyEntity select(@Param("outTradeNo") String outTradeNo);
 
     void updateFlag(@Param("entity")WithdrawApplyEntity withdrawApplyEntity) throws Exception;

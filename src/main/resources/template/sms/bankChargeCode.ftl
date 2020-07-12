@@ -1,0 +1,1 @@
+${orgName}向${platformName}平台转账${tradeAmount}元。

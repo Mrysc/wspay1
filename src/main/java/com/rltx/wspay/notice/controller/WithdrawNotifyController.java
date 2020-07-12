@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 打款结果通知
+ * 提现异步通知
  */
 @RestController
 @RequestMapping("withdrawNotify")
@@ -15,10 +15,10 @@ public class WithdrawNotifyController extends BaseContext {
 
     @Autowired
     private IWithdrawNotifyService withdrawNotifyService;
-
     @ResponseBody
     @PostMapping(value="/notify",produces = {"application/xml;charset=UTF-8"})
     public  String notify(@RequestBody String data) throws Exception {
+        System.out.println("+++++++++++++++++++++++++++提现异步通知+++++++++++++++++++++++++");
         String response = withdrawNotifyService.notify(data);
         return  response;
     }

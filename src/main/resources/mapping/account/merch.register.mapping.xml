@@ -86,49 +86,8 @@
             register_status != '2'
             AND
             merch_user_code = #{merchUserCode}
-            AND
-            account_type = #{accountType}
+
     </select>
-
-    <select id="selectByMerchUserCodeType" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchRegisterEntity">
-        SELECT
-            code AS code,
-            merch_id AS merchId,
-            out_merch_id AS outMerchId,
-            merch_user_code AS merchUserCode,
-            merch_name AS merchName,
-            type AS type,
-            merch_type AS merchType,
-            phone AS phone,
-            name AS name,
-            card_no AS cardNo,
-            card_name AS cardName,
-            opening_bank AS openingBank,
-            contact_line AS contactLine,
-            account_type AS accountType,
-            basic AS basic,
-            prepay AS prepay,
-            trade_deposit AS tradeDeposit,
-            register_status AS registerStatus,
-            open_pay AS openPay,
-            create_by AS createBy,
-            create_time AS createTime,
-            update_by AS updateBy,
-            update_time AS updateTime,
-            deleted AS deleted
-
-        FROM
-            ws_cloud_pay.merch_register
-        WHERE
-            deleted = '0'
-            AND
-            register_status != '2'
-            AND
-            merch_user_code = #{merchUserCode}
-            AND
-            account_type = #{accountType}
-    </select>
-
 
     <select id="selectByCode" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchRegisterEntity">
         SELECT

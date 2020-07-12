@@ -1,11 +1,19 @@
 package com.rltx.wspay.withdrawal.entity;
 
+import com.rltx.wspay.utils.constant.ParamUtil;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApplyConfirmEntity {
 
-    private String isvOrgId;
+    @Builder.Default
+    private String isvOrgId = ParamUtil.getParamInfoByKey("IsvOrgId");
 
     private String merchantId;
 
@@ -13,16 +21,20 @@ public class ApplyConfirmEntity {
 
     private String orderNo;
 
-    private String  platformFee;
+    @Builder.Default
+    private String platformFee = "0";
 
-    private String feeCurrency;
+    @Builder.Default
+    private String feeCurrency = ParamUtil.getParamInfoByKey("Currency");
 
     private String totalAmount;
 
-    private String  currency;
+    @Builder.Default
+    private String currency = ParamUtil.getParamInfoByKey("Currency");
+    @Builder.Default
+    private String smsCode = "";
 
-    private String smsCode;
-
-    private String memo;
+    @Builder.Default
+    private String memo = "";
 
 }

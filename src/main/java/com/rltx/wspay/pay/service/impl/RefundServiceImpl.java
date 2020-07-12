@@ -9,6 +9,7 @@ import com.rltx.wspay.utils.constant.ParamUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.TreeMap;
+import java.util.UUID;
 
 @Service
 public class RefundServiceImpl implements IRefundService {
@@ -24,10 +25,11 @@ public class RefundServiceImpl implements IRefundService {
                 ParticipantType.MERCHANT,
                 HttpMain.merchantId,
                 "",
-                TradeNoUtils.getTradeNo32(),
+                UUID.randomUUID().toString(),
                 "",
                 HttpMain.Currency,
                 ""
+
         );
 
         TreeMap<String, String> form = new TreeMap<String, String>();

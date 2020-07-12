@@ -4,10 +4,12 @@ import com.rltx.wspay.constant.Constant;
 import com.rltx.wspay.pay.entity.*;
 import com.rltx.wspay.pay.service.IKybService;
 import com.rltx.wspay.commom.*;
+import com.rltx.wspay.utils.TradeNoUtils;
 import com.rltx.wspay.utils.constant.ParamUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.TreeMap;
+import java.util.UUID;
 
 @Service
 public class KybServiceImpl implements IKybService {
@@ -20,7 +22,7 @@ public class KybServiceImpl implements IKybService {
         String function = Constant.function.kybApply;
 
         KybApplyEntity apply = new KybApplyEntity(
-                TradeNoUtils.getTradeNo32().replaceAll("-",""),
+                TradeNoUtils.getTradeNo32(),
                 HttpMain.IsvOrgId,
                 HttpMain.merchantId
         );
@@ -54,7 +56,7 @@ public class KybServiceImpl implements IKybService {
     public String kybMatch() throws Exception {
         String function = Constant.function.kybMatch;
         KybMatchEntity match = new KybMatchEntity(
-                TradeNoUtils.getTradeNo32().replaceAll("-",""),
+                TradeNoUtils.getTradeNo32(),
                 HttpMain.IsvOrgId,
                 HttpMain.merchantId,
                 "202004031012052200000000000090040100025800",

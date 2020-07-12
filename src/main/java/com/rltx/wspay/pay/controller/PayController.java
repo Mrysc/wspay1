@@ -18,10 +18,10 @@ public class PayController{
     private IPayService payService;
 
     //余额支付创建接口
-//    @PostMapping("balancePay")
-//    public TreeMap<String, Object> balancePay(String payerCode, String payeeCode, String totalAmount,String paybillNo) throws Exception {
-//        return payService.balancePay(payerCode,payeeCode,totalAmount,paybillNo);
-//    }
+    @PostMapping("balancePay")
+    public TreeMap<String, Object> balancePay(String payerCode, String payeeCode, String totalAmount) throws Exception {
+        return payService.balancePay(payerCode,payeeCode,totalAmount);
+    }
 
     //开通商户余额支付权限接口
     @PostMapping("openPay")
@@ -31,7 +31,7 @@ public class PayController{
 
     //余额支付确认接口
     @PostMapping("payConfirm")
-    public PaymertRecordEntity payConfirm(String code) throws Exception {
+    public TreeMap<String, Object> payConfirm(String code) throws Exception {
         return payService.payConfirm(code);
     }
 

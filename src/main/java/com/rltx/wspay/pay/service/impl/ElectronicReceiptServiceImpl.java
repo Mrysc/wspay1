@@ -5,12 +5,16 @@ import com.rltx.wspay.constant.Constant;
 import com.rltx.wspay.pay.dao.ElectronicreceiptDao;
 import com.rltx.wspay.pay.dao.PaymentRecordDao;
 import com.rltx.wspay.pay.entity.ElectronicReceiptEntity;
+import com.rltx.wspay.pay.entity.OrderShareEntity;
 import com.rltx.wspay.pay.entity.PaymertRecordEntity;
+import com.rltx.wspay.pay.entity.ShareQueryEntity;
 import com.rltx.wspay.pay.service.IElectronicReceiptService;
+import com.rltx.wspay.utils.TradeNoUtils;
 import com.rltx.wspay.utils.constant.ParamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.TreeMap;
+import java.util.UUID;
 
 @Service
 public class ElectronicReceiptServiceImpl implements IElectronicReceiptService {
